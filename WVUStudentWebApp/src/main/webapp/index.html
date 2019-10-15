@@ -1,0 +1,59 @@
+<html>
+<body>
+<h2>WVU Student Web Application</h2>
+
+
+<div id="roster">
+
+</div>
+<button  onclick= "populateRoster()" id="allStudentsBtn">Get Students</button>
+
+<button onclick="showSessionUser()">Sess Info</button>
+
+</body>
+<script>
+
+    function populateRoster(){
+
+                let xhttp = new XMLHttpRequest();
+
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            console.log(this.responseText)
+                            let students =  JSON.parse(this.responseText);
+                            let list = "";
+                          
+                            for(let i = 0; i <students.length; i++){
+
+                                let student = `<li> ${students[i].username} </li>`;
+                                list = list + student;
+
+                            }
+
+                            document.getElementById("roster").innerHTML = list;
+                            
+                       }
+                    };
+                    xhttp.open("GET", "http://localhost:8080/WVUStudentWebApp/getAllStudents.do", true);
+                    xhttp.send(); 
+                }
+
+    function showSessionUser(){
+
+        let xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         console.log(this.responseText);
+
+        }};
+    xhttp.open("GET", "http://localhost:8080/WVUStudentWebApp/sessInfo.do", true);
+    xhttp.send(); 
+    }
+    
+
+
+</script>
+
+
+</html>

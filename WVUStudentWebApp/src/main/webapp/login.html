@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>login</title>
+</head>
+
+<body>
+
+    <h3>Student Login</h3>
+
+    <input type="text" placeholder="username" id="username">
+    <input type="password" placeholder="password" id="password">
+    <button onclick="login()">Login</button>
+
+    <div id="welcome"></div>
+    
+</body>
+
+<script>
+
+    function login(){
+
+        let xhttp = new XMLHttpRequest();
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         console.log(this.responseText);
+
+        }};
+    xhttp.open("POST", "http://localhost:8080/WVUStudentWebApp/loginStudent.do", true);
+    xhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    xhttp.send(`username=${username}&password=${password}`); 
+    }
+
+
+</script>
+
+
+</html>
